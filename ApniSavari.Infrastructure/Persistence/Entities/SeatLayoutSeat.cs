@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace ApniSavari.Infrastructure.Persistence.Entities;
+
+public partial class SeatLayoutSeat
+{
+    public long SeatLayoutSeatId { get; set; }
+
+    public long SeatLayoutId { get; set; }
+
+    public string? SeatCode { get; set; }
+
+    public string? SeatType { get; set; }
+
+    public string? Deck { get; set; }
+
+    public short? RowNumber { get; set; }
+
+    public short? ColumnNumber { get; set; }
+
+    public int? PositionFlags { get; set; }
+
+    public bool? IsBookable { get; set; }
+
+    public virtual SeatLayout SeatLayout { get; set; } = null!;
+}

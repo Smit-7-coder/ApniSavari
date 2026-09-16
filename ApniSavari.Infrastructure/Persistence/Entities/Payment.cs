@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace ApniSavari.Infrastructure.Persistence.Entities;
+
+public partial class Payment
+{
+    public long PaymentId { get; set; }
+
+    public long BookingId { get; set; }
+
+    public string? ProviderName { get; set; }
+
+    public long? ProviderOrderId { get; set; }
+
+    public long? ProviderPaymentId { get; set; }
+
+    public decimal? Amount { get; set; }
+
+    public string? CurrencyCode { get; set; }
+
+    public string? Method { get; set; }
+
+    public string Status { get; set; } = null!;
+
+    public string? ProviderSignatureVerified { get; set; }
+
+    public DateTime CreatedAtUtc { get; set; }
+
+    public virtual ICollection<PaymentTransaction> PaymentTransactions { get; set; } = new List<PaymentTransaction>();
+
+    public virtual ICollection<PaymentTransfer> PaymentTransfers { get; set; } = new List<PaymentTransfer>();
+
+    public virtual ICollection<Refund> Refunds { get; set; } = new List<Refund>();
+}
