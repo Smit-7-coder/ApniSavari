@@ -1,0 +1,266 @@
+﻿{
+   "CodeGenerationMode": 5,
+   "ContextClassName": "ApniSavariDbContext",
+   "ContextNamespace": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "IrregularWords": null,
+   "MinimumProductVersion": "2.6.1706",
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Persistence\\Entities",
+   "PluralRules": null,
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "ApniSavari.Infrastructure.Persistence.Context",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "SingularRules": null,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[Amenities]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AuditLogs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BoardingRecords]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BookingPassengers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Bookings]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BookingSeats]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BookingTransfers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BusAmenities]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Buses]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BusTypes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Complaints]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Conductors]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Coupons]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CouponUsages]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DisruptionAffectedBookings]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Drivers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MediaFiles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Notifications]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[NotificationTemplates]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Offers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OfferUsages]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OperatorBankAccounts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OperatorDisruptions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OperatorDocuments]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OperatorPenalties]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Operators]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OperatorSettlements]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OperatorUsers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Passengers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PaymentProviderAccounts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Payments]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PaymentTransactions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PaymentTransfers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PricingRules]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Refunds]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Reviews]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Roles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Routes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[RouteStops]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SeatHolds]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SeatLayouts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SeatLayoutSeats]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SettlementItems]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Stops]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SystemConfigurations]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TripBuses]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TripFares]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Trips]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TripSeatInventory]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TripStaffAssignments]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TripStops]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserRoles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Users]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserTravelPreferences]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseAsyncStoredProcedureCalls": true,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDatabaseNamesForRoutines": true,
+   "UseDateOnlyTimeOnly": true,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseInternalAccessModifiersForSprocsAndFunctions": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false,
+   "UseT4Split": false,
+   "UseTypedTvpParameters": true
+}

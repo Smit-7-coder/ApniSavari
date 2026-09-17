@@ -1,7 +1,7 @@
 ﻿using ApniSavari.Application.DTOs;
 using ApniSavari.Application.Interfaces;
 using ApniSavari.Infrastructure.Persistence.Context;
-using ApniSavari.Infrastructure.Persistence.Entities;
+using ApniSavari.Infrastructure.Persistence.Context.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -13,11 +13,10 @@ using System.Text;
 
 namespace ApniSavari.Infrastructure.Services
 {
-    internal class AuthService
+    public class AuthService : IAuthService
     {
         private readonly ApniSavariDbContext _context;
         private readonly IConfiguration _configuration;
-        private readonly IAuthService _service;
 
         public AuthService
             (
@@ -27,7 +26,6 @@ namespace ApniSavari.Infrastructure.Services
         {
             _context = context;
             _configuration = configuration;
-            IAuthService service;
         }
 
         public async Task<AuthResponseDto> RegisterAsync(RegisterRequestDto request)
@@ -47,7 +45,7 @@ namespace ApniSavari.Infrastructure.Services
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
                 Status = "Active",
                 IsPhoneVerified = false,
-                IsEmailverified = false,
+                IsEmailVerified = false,
                 CreatedAtUtc = DateTime.UtcNow,
                 UpdatedAtUtc = DateTime.UtcNow
             };
@@ -70,7 +68,7 @@ namespace ApniSavari.Infrastructure.Services
             return new AuthResponseDto
             {
                 UserId = user.UserId,
-                FullName = $"{user.FirstName}{user.LastName}".Trim(),
+                FullName = $"{user.FirstName} {user.LastName}".Trim(),
                 Email = user.Email,
                 Role = "Customer"
             };
@@ -100,10 +98,62 @@ namespace ApniSavari.Infrastructure.Services
                 audience: audience,
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(
-                    double.Parse(_configuration["jwt:ExpyeryMinutes"]!)),
+                    double.Parse(_configuration["jwt:ExpiryMinutes"]!)),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public async Task<AuthResponseDto> LoginAsync(LoginRequestDto request)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+
+            if(user == null)
+            {
+                throw new Exception("Invalid email or password.");
+            }
+
+            if (user.Status != "Active")
+            {
+                throw new Exception("Your account is not active.");
+            }
+
+            if (string.IsNullOrEmpty(user.PasswordHash))
+            {
+                throw new Exception("Password is not configured.");
+            }
+
+            var passwordValid = BCrypt.Net.BCrypt.Verify(
+                request.Password,
+                user.PasswordHash);
+
+            if (!passwordValid)
+                throw new Exception("Invalid email or password.");
+
+            var userRole = await _context.UserRoles
+                .FirstOrDefaultAsync(ur => ur.UserId == user.UserId);
+
+            if (userRole == null)
+                throw new Exception("User role not assigned.");
+
+            var role = await _context.Roles
+                .FirstOrDefaultAsync(r => r.RoleId == userRole.RoleId);
+
+            if (role == null || !role.IsActive.GetValueOrDefault())
+                throw new Exception("User role is inactive.");
+
+            var roleName = role.RoleName ?? "Customer";
+
+            var token = GenerateToken(user, roleName);
+
+            return new AuthResponseDto
+            {
+                UserId = user.UserId,
+                FullName = $"{user.FirstName} {user.LastName}".Trim(),
+                Email = user.Email,
+                Role = roleName,
+                Token = token
+            };
         }
     }
 }

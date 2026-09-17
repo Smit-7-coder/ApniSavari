@@ -3,15 +3,27 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ApniSavari.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-namespace ApniSavari.API
+using ApniSavari.Application.Interfaces;
+using ApniSavari.Infrastructure.Services;
+using ApniSavari.Infrastructure.Persistence.Context.Persistence.Entities;
 
+namespace ApniSavari.API;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        var builder = WebApplication.CreateBuilder(args);
+
+        // Swagger
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+
+        // Authentication Service
+        builder.Services.AddScoped<IAuthService, AuthService>();
+
+        // JWT Authentication
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -30,35 +42,36 @@ namespace ApniSavari.API
                 };
             });
 
-            builder.Services.AddAuthorization();
-            builder.Services.AddDbContext<ApniSavariDbContext>(options =>
+        // Authorization
+        builder.Services.AddAuthorization();
+
+        // Database
+        builder.Services.AddDbContext<ApniSavariDbContext>(options =>
             options.UseSqlServer(
-            builder.Configuration.GetConnectionString("DefaultConnection")));
+                builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // Add services to the container.
+        // Controllers
+        builder.Services.AddControllers();
 
-            builder.Services.AddControllers();
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
+        
 
-            var app = builder.Build();
+        var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.MapOpenApi();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthentication();
-
-            app.UseAuthorization();
-
-
-            app.MapControllers();
-
-            app.Run();
+        // HTTP Request Pipeline
+        if (app.Environment.IsDevelopment())
+        {
+            
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
+
+        app.UseHttpsRedirection();
+
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        app.MapControllers();
+
+        app.Run();
     }
 }
