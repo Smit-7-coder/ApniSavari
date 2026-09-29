@@ -37,6 +37,14 @@ namespace ApniSavari.Infrastructure.Services
             {
                 throw new Exception("Email already registered.");
             }
+            if (await _context.Users.AnyAsync(u => u.PhoneNumber == request.PhoneNumber))
+            {
+                throw new Exception("Phone number already registered.");
+            }
+            if (request.Password != request.ConfirmPassword)
+            {
+                throw new Exception("Password and confirm password must be same");
+            }
             var user = new User
             {
                 FirstName = request.FullName,
@@ -112,6 +120,7 @@ namespace ApniSavari.Infrastructure.Services
             {
                 throw new Exception("Invalid email or password.");
             }
+
 
             if (user.Status != "Active")
             {
