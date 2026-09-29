@@ -22,6 +22,19 @@ public class Program
         // Authentication Service
         builder.Services.AddScoped<IAuthService, AuthService>();
 
+        builder.Services.AddScoped<IAuthService, AuthService>();
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AngularClient", policy =>
+            {
+                policy
+                    .WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
+        });
+
         // JWT Authentication
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -66,6 +79,8 @@ public class Program
         }
 
         app.UseHttpsRedirection();
+
+        app.UseCors("AngularClient");
 
         app.UseAuthentication();
         app.UseAuthorization();
