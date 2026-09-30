@@ -6,6 +6,7 @@ import {RegisterRequest} from '../models/register-request';
 import {AuthResponse} from '../models/auth-response';
 import { LoginRequest } from '../models/login-request';
 
+
 @Injectable({
     providedIn: 'root'
 })
@@ -24,4 +25,6 @@ export class AuthService {
             `${this.apiURL}/login`,request
         );
     }
+
+
 }

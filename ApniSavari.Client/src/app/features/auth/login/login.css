@@ -1,33 +1,773 @@
-.register-container {
-  width: 400px;
-  margin: 50px auto;
-}
+/* =========================================================
+   APNISAVARI LOGIN PAGE
+========================================================= */
 
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
+:host {
   display: block;
-  margin-bottom: 5px;
 }
 
-input {
-  width: 100%;
-  padding: 10px;
-  box-sizing: border-box;
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.auth-page {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f7faff 0%,
+      #eef4fa 100%
+    );
 }
 
-button {
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.auth-container {
   width: 100%;
-  padding: 10px;
+  max-width: 1120px;
+
+  min-height: 680px;
+
+  display: grid;
+  grid-template-columns: 46% 54%;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border-radius: 26px;
+
+  box-shadow:
+    0 25px 70px rgba(6, 59, 115, 0.14);
+}
+
+
+/* =========================================================
+   LEFT BRAND PANEL
+========================================================= */
+
+.brand-panel {
+  position: relative;
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 55px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      145deg,
+      #032f60 0%,
+      #064783 50%,
+      #0a579b 100%
+    );
+}
+
+
+/* Orange glow */
+
+.brand-panel::before {
+  content: "";
+
+  position: absolute;
+
+  width: 330px;
+  height: 330px;
+
+  right: -150px;
+  top: -140px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 107, 0, 0.22);
+}
+
+
+/* Orange lower shape */
+
+.brand-panel::after {
+  content: "";
+
+  position: absolute;
+
+  width: 500px;
+  height: 180px;
+
+  left: -130px;
+  bottom: -100px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 107, 0, 0.14);
+
+  transform: rotate(-12deg);
+}
+
+
+/* =========================================================
+   DECORATIVE CIRCLES
+========================================================= */
+
+.brand-background-circle {
+  position: absolute;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.circle-one {
+  width: 260px;
+  height: 260px;
+
+  right: -110px;
+  bottom: 80px;
+}
+
+.circle-two {
+  width: 160px;
+  height: 160px;
+
+  left: -90px;
+  top: 80px;
+}
+
+
+/* =========================================================
+   BRAND CONTENT
+========================================================= */
+
+.brand-content {
+  position: relative;
+
+  z-index: 3;
+
+  width: 100%;
+  max-width: 420px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+
+  margin-bottom: 28px;
+}
+
+.brand-logo {
+  width: 245px;
+  max-width: 100%;
+
+  display: block;
+
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.14);
+}
+
+
+/* =========================================================
+   BRAND TEXT
+========================================================= */
+
+.brand-text h1 {
+  margin: 0 0 14px;
+
+  font-size: 31px;
+
+  font-weight: 700;
+
+  line-height: 1.25;
+
+  letter-spacing: -0.5px;
+}
+
+.brand-text h1 span {
+  color: #ff7614;
+}
+
+.brand-text p {
+  margin: 0 auto 35px;
+
+  max-width: 390px;
+
+  font-size: 15px;
+
+  line-height: 1.7;
+
+  color: rgba(255, 255, 255, 0.82);
+}
+
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.brand-features {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 13px;
+
+  text-align: left;
+}
+
+.feature-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 13px 15px;
+
+  border-radius: 12px;
+
+  background:
+    rgba(255, 255, 255, 0.07);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(5px);
+}
+
+.feature-icon {
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background:
+    rgba(255, 107, 0, 0.16);
+
+  font-size: 19px;
+}
+
+.feature-item strong {
+  display: block;
+
+  margin-bottom: 2px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+.feature-item small {
+  display: block;
+
+  font-size: 12px;
+
+  color: rgba(255, 255, 255, 0.65);
+}
+
+
+/* =========================================================
+   ROAD DECORATION
+========================================================= */
+
+.road-decoration {
+  position: absolute;
+
+  left: -80px;
+  right: -80px;
+  bottom: 18px;
+
+  height: 4px;
+
+  z-index: 2;
+
+  transform: rotate(-7deg);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 107, 0, 0.8),
+      #ff7614,
+      rgba(255, 107, 0, 0.5),
+      transparent
+    );
+}
+
+.road-line {
+  width: 100%;
+  height: 2px;
+
+  margin-top: -7px;
+
+  background:
+    rgba(255, 255, 255, 0.35);
+}
+
+
+/* =========================================================
+   RIGHT FORM PANEL
+========================================================= */
+
+.form-panel {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 55px;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 410px;
+}
+
+
+/* =========================================================
+   MOBILE LOGO
+========================================================= */
+
+.mobile-logo {
+  display: none;
+
+  text-align: center;
+
+  margin-bottom: 28px;
+}
+
+.mobile-logo img {
+  width: 190px;
+
+  max-width: 80%;
+}
+
+
+/* =========================================================
+   FORM HEADER
+========================================================= */
+
+.form-header {
+  margin-bottom: 34px;
+}
+
+.welcome-label {
+  display: inline-block;
+
+  margin-bottom: 10px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.7px;
+
+  color: #ff6b00;
+}
+
+.form-header h2 {
+  margin: 0 0 9px;
+
+  color: #063b73;
+
+  font-size: 30px;
+
+  font-weight: 700;
+
+  letter-spacing: -0.6px;
+}
+
+.form-header p {
+  margin: 0;
+
+  color: #718096;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+.form-header strong {
+  color: #063b73;
+}
+
+
+/* =========================================================
+   INPUT GROUP
+========================================================= */
+
+.input-group-custom {
+  margin-bottom: 22px;
+}
+
+.input-group-custom label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #344054;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.input-wrapper {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+
+  left: 16px;
+
+  z-index: 2;
+
+  color: #8b98a8;
+
+  font-size: 15px;
+
+  pointer-events: none;
+}
+
+.input-wrapper input {
+  width: 100%;
+
+  height: 52px;
+
+  padding:
+    0 15px 0 45px;
+
+  border:
+    1px solid #d8e0e9;
+
+  border-radius: 11px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #1c2b39;
+
+  font-size: 14px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.input-wrapper input::placeholder {
+  color: #a1aab5;
+}
+
+.input-wrapper input:hover {
+  border-color: #b9c6d4;
+}
+
+.input-wrapper input:focus {
+  border-color: #ff6b00;
+
+  background: #fffdfb;
+
+  box-shadow:
+    0 0 0 3px rgba(255, 107, 0, 0.10);
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.message {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  margin-bottom: 20px;
+
+  padding: 12px 14px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+}
+
+.success-message {
+  color: #176b42;
+
+  background: #edf9f2;
+
+  border:
+    1px solid #c9efd9;
+}
+
+.error-message {
+  color: #b42318;
+
+  background: #fff2f0;
+
+  border:
+    1px solid #ffd1cc;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
+.login-button {
+  width: 100%;
+
+  height: 53px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  border: none;
+
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ff6400,
+      #ff7917
+    );
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 20px rgba(255, 107, 0, 0.20);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.login-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 25px rgba(255, 107, 0, 0.28);
+}
+
+.login-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.login-button:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+
+  box-shadow: none;
+}
+
+.button-arrow {
+  font-size: 19px;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   LOADING SPINNER
+========================================================= */
+
+.spinner {
+  width: 17px;
+  height: 17px;
+
+  border:
+    2px solid rgba(255, 255, 255, 0.4);
+
+  border-top-color: #ffffff;
+
+  border-radius: 50%;
+
+  animation:
+    spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.account-footer {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 5px;
+
+  margin-top: 28px;
+
+  font-size: 13px;
+
+  color: #718096;
+}
+
+.account-footer a {
+  color: #ff6b00;
+
+  font-weight: 600;
+
+  text-decoration: none;
+
   cursor: pointer;
 }
 
-.success {
-  color: green;
+.account-footer a:hover {
+  color: #e85d00;
+
+  text-decoration: underline;
 }
 
-.error {
-  color: red;
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+.security-text {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 28px;
+
+  color: #98a2b3;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .auth-container {
+    grid-template-columns: 1fr;
+
+    max-width: 520px;
+
+    min-height: auto;
+  }
+
+  .brand-panel {
+    display: none;
+  }
+
+  .mobile-logo {
+    display: block;
+  }
+
+  .form-panel {
+    padding: 45px 40px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 500px) {
+
+  .auth-page {
+    padding: 12px;
+  }
+
+  .auth-container {
+    border-radius: 18px;
+  }
+
+  .form-panel {
+    padding: 32px 22px;
+  }
+
+  .form-header h2 {
+    font-size: 26px;
+  }
+
+  .mobile-logo img {
+    width: 170px;
+  }
+
+  .account-footer {
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 3px;
+  }
+
 }

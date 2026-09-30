@@ -1,32 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import{inject} from '@angular/core';
-import{ AuthService } from '../../../core/services/auth';
+import { RouterLink } from '@angular/router';
+import { AuthService } from '../../../core/services/auth';
 import { LoginRequest } from '../../../core/models/login-request';
 
 @Component({
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   selector: 'app-login',
   styleUrl: './login.css',
   templateUrl: './login.html',
 })
 export class Login {
-  LoginData : LoginRequest = {
+  loginData : LoginRequest = {
     email : '',
     password : ''
   };
 
   message: string = '';
   errorMessage: string = '';
+  isLoading: boolean = false;
 
   authService = inject(AuthService);
 
   login(): void{
     this.message = '';
     this.errorMessage = '';
+    this.isLoading = true;
 
-    this.authService.login(this.LoginData).subscribe({
+    this.authService.login(this.loginData).subscribe({
       next:(response)=>{
+        this.isLoading = false;
+
         console.log('Login response:', response);
         console.log('JWT Token:', response.token);
         this.message = 'Login Successfull!';
@@ -35,8 +39,11 @@ export class Login {
         localStorage.setItem('token', response.token);
       },
       error:(error)=>{
+        this.isLoading = false;
         this.errorMessage = error.error?.message ?? 'Login failed.';
       }
     })
   }
+
+ 
 }

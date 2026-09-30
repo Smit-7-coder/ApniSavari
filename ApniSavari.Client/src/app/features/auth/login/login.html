@@ -1,39 +1,314 @@
-<div class="register-container">
+<div class="auth-page">
 
-  <h2>Create Account</h2>
+  <div class="auth-container">
 
-  <form (ngSubmit)="login()">
+    <!-- =========================================
+         LEFT BRANDING PANEL
+    ========================================== -->
 
-    <div class="form-group">
-      <label>Email</label>
-      <input
-        type="text"
-        name="email"
-        [(ngModel)]="LoginData.email"
-        required>
-    </div>
+    <section class="brand-panel">
 
-    <div class="form-group">
-      <label>Password</label>
-      <input
-        type="password"
-        name="password"
-        [(ngModel)]="LoginData.password"
-        required>
-    </div>
+      <div class="brand-background-circle circle-one"></div>
+      <div class="brand-background-circle circle-two"></div>
 
-    
-    <button type="submit">
-      Login
-    </button>
-  </form>
+      <div class="brand-content">
 
-  @if (message) {
-    <p class="success">{{ message }}</p>
-  }
+        <!-- Logo -->
+        <div class="logo-wrapper">
 
-  @if (errorMessage) {
-    <p class="error">{{ errorMessage }}</p>
-  }
+          <img
+            src="/ApniSavari.png"
+            alt="ApniSavari"
+            class="brand-logo"
+          >
+
+        </div>
+
+
+        <!-- Brand Text -->
+
+        <div class="brand-text">
+
+          <h1>
+            Aapki Savari,
+            <span>Aapka Safar</span>
+          </h1>
+
+          <p>
+            Your journey begins with ApniSavari.
+            Discover buses, choose your seat and
+            travel comfortably.
+          </p>
+
+        </div>
+
+
+        <!-- Features -->
+
+        <div class="brand-features">
+
+          <div class="feature-item">
+
+            <div class="feature-icon">
+              🚌
+            </div>
+
+            <div>
+              <strong>Easy Bus Booking</strong>
+              <small>Find the right bus for your journey</small>
+            </div>
+
+          </div>
+
+
+          <div class="feature-item">
+
+            <div class="feature-icon">
+              🎫
+            </div>
+
+            <div>
+              <strong>Instant Tickets</strong>
+              <small>Book and manage your tickets easily</small>
+            </div>
+
+          </div>
+
+
+          <div class="feature-item">
+
+            <div class="feature-icon">
+              🛣️
+            </div>
+
+            <div>
+              <strong>Travel Comfortably</strong>
+              <small>Your journey, your choice</small>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Decorative Road -->
+
+      <div class="road-decoration">
+
+        <div class="road-line"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         RIGHT LOGIN PANEL
+    ========================================== -->
+
+    <section class="form-panel">
+
+      <div class="form-container">
+
+
+        <!-- Mobile Logo -->
+
+        <div class="mobile-logo">
+
+          <img
+            src="/ApniSavari.png"
+            alt="ApniSavari"
+          >
+
+        </div>
+
+
+        <!-- Heading -->
+
+        <div class="form-header">
+
+          <span class="welcome-label">
+            WELCOME BACK
+          </span>
+
+          <h2>
+            Login to your account
+          </h2>
+
+          <p>
+            Continue your journey with
+            <strong>ApniSavari</strong>.
+          </p>
+
+        </div>
+
+
+        <!-- Login Form -->
+
+        <form
+          (ngSubmit)="login()"
+          #loginForm="ngForm"
+        >
+
+
+          <!-- Email -->
+
+          <div class="input-group-custom">
+
+            <label for="email">
+              Email Address
+            </label>
+
+            <div class="input-wrapper">
+
+              <span class="input-icon">
+                ✉
+              </span>
+
+              <input
+                id="email"
+                type="email"
+                name="email"
+                [(ngModel)]="loginData.email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- Password -->
+
+          <div class="input-group-custom">
+
+            <label for="password">
+              Password
+            </label>
+
+            <div class="input-wrapper">
+
+              <span class="input-icon">
+                🔒
+              </span>
+
+              <input
+                id="password"
+                type="password"
+                name="password"
+                [(ngModel)]="loginData.password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- Success -->
+
+          @if (message) {
+
+            <div class="message success-message">
+
+              <span>✓</span>
+
+              <span>
+                {{ message }}
+              </span>
+
+            </div>
+
+          }
+
+
+          <!-- Error -->
+
+          @if (errorMessage) {
+
+            <div class="message error-message">
+
+              <span>!</span>
+
+              <span>
+                {{ errorMessage }}
+              </span>
+
+            </div>
+
+          }
+
+
+          <!-- Login Button -->
+
+          <button
+            type="submit"
+            class="login-button"
+            [disabled]="isLoading || loginForm.invalid"
+          >
+
+            @if (isLoading) {
+
+              <span class="spinner"></span>
+
+              <span>
+                Logging in...
+              </span>
+
+            } @else {
+
+              <span>
+                Login to ApniSavari
+              </span>
+
+              <span class="button-arrow">
+                →
+              </span>
+
+            }
+
+          </button>
+
+        </form>
+
+
+        <!-- Register -->
+
+        <div class="account-footer">
+
+          <span>
+            Don't have an account?
+          </span>
+
+          <a routerLink="/register">
+            Create an account
+          </a>
+
+        </div>
+
+
+        <!-- Bottom Text -->
+
+        <div class="security-text">
+
+          <span>🔐</span>
+
+          <span>
+            Your information is securely protected
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
 
 </div>
