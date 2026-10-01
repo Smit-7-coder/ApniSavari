@@ -1,0 +1,18 @@
+
+<nav class="navbar">
+  <div class="brand">
+    <img src="/ApniSavari.png" alt="ApniSavari Logo">
+    <span>ApniSavari</span>
+  </div>
+
+  <div class="nav-links">
+    <a routerLink="/customer/dashboard">Dashboard</a>
+    <a routerLink="/customer/bookings">My Bookings</a>
+    <a routerLink="/customer/profile">Profile</a>
+    <button (click)="logout()">Logout</button>
+  </div>
+</nav>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>
