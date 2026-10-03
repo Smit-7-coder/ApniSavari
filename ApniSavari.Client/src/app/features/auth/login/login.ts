@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth';
 import { LoginRequest } from '../../../core/models/login-request';
+import { Router } from '@angular/router';
 
 @Component({
   imports: [FormsModule, RouterLink],
@@ -21,6 +22,7 @@ export class Login {
   isLoading: boolean = false;
 
   authService = inject(AuthService);
+  router = inject(Router);
 
   login(): void{
     this.message = '';
@@ -35,6 +37,8 @@ export class Login {
         console.log('JWT Token:', response.token);
         this.message = 'Login Successfull!';
         console.log(response);
+        this.router.navigate(['/customer/dashboard']);
+
 
         localStorage.setItem('token', response.token);
       },

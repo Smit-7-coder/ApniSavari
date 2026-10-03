@@ -4,11 +4,12 @@ import { Login } from './features/auth/login/login';
 import { CustomerLayout } from './features/customer/customer-layout/customer-layout';
 import { CustomerDashboard } from './features/customer/customer-dashboard/customer-dashboard';
 import { authGuard } from './core/guards/auth-guard';
+import { Home } from './features/customer/home/home';
 
 export const routes: Routes = [
   {
     path:'',
-    redirectTo:'login',
+    redirectTo:'home',
     pathMatch:'full'
   },
   {
@@ -34,5 +35,13 @@ export const routes: Routes = [
         component: CustomerDashboard
       }
     ]
+  },
+  {
+    path: 'customer',
+    component: CustomerLayout,
+    children: [{
+      path: 'home',
+      component: Home
+    }]
   }
 ];

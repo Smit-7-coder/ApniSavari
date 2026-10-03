@@ -1,18 +1,101 @@
 
-<nav class="navbar">
-  <div class="brand">
-    <img src="/ApniSavari.png" alt="ApniSavari Logo">
-    <span>ApniSavari</span>
+<header class="site-header">
+  <div class="header-container">
+
+    <!-- Brand -->
+    <a class="brand" routerLink="/" (click)="closeMenu()">
+      <img src="/ApniSavari.png" alt="ApniSavari">
+      <span class="brand-name">Apni<span>Savari</span></span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav">
+      <a routerLink="/" routerLinkActive="active"
+         [routerLinkActiveOptions]="{exact: true}">
+        Home
+      </a>
+
+      <a routerLink="/search" routerLinkActive="active">
+        Search Buses
+      </a>
+
+      @if (isLoggedIn()) {
+        <a routerLink="/my-bookings" routerLinkActive="active">
+          My Bookings
+        </a>
+      }
+    </nav>
+
+    <!-- Actions -->
+    <div class="header-actions">
+      <a class="help-link" href="mailto:support@apnisavari.com">
+        <span class="help-icon">?</span>
+        <span>Help</span>
+      </a>
+
+      @if (isLoggedIn()) {
+        <a class="profile-link" routerLink="/profile" aria-label="Profile">
+          <span class="profile-avatar">U</span>
+        </a>
+        <button class="sign-in-btn" (click)="logout()">
+          Logout
+        </button>
+      } @else {
+        <a class="sign-in-btn" routerLink="/login">Sign in</a>
+        <a class="register-btn" routerLink="/register">Create account</a>
+      }
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button
+      class="mobile-menu-btn"
+      type="button"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOpen()"
+      aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 
-  <div class="nav-links">
-    <a routerLink="/customer/dashboard">Dashboard</a>
-    <a routerLink="/customer/bookings">My Bookings</a>
-    <a routerLink="/customer/profile">Profile</a>
-    <button (click)="logout()">Logout</button>
-  </div>
-</nav>
+  <!-- Mobile Navigation -->
+  @if (menuOpen()) {
+    <nav class="mobile-nav">
+      <a routerLink="/" (click)="closeMenu()">Home</a>
+      <a routerLink="/search" (click)="closeMenu()">Search Buses</a>
+
+      @if (isLoggedIn()) {
+        <a routerLink="/my-bookings" (click)="closeMenu()">My Bookings</a>
+        <a routerLink="/profile" (click)="closeMenu()">Profile</a>
+        <button (click)="logout()">Logout</button>
+      } @else {
+        <a routerLink="/login" (click)="closeMenu()">Sign in</a>
+        <a routerLink="/register" (click)="closeMenu()">Create account</a>
+      }
+    </nav>
+  }
+</header>
 
 <main class="main-content">
   <router-outlet></router-outlet>
 </main>
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <strong>ApniSavari</strong>
+      <p>Making every journey simpler.</p>
+    </div>
+
+    <div class="footer-links">
+      <a routerLink="/">Home</a>
+      <a routerLink="/login">Sign in</a>
+      <a routerLink="/register">Register</a>
+    </div>
+
+    <p class="copyright">
+      © {{ currentYear }} ApniSavari
+    </p>
+  </div>
+</footer>
