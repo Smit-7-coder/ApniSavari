@@ -24,6 +24,8 @@ public class Program
 
         builder.Services.AddScoped<IAuthService, AuthService>();
 
+        builder.Services.AddScoped<IStopService, StopService>();
+
         builder.Services.AddCors(options =>
         {
             options.AddPolicy("AngularClient", policy =>
