@@ -9,7 +9,7 @@ import { Home } from './features/customer/home/home';
 export const routes: Routes = [
   {
     path:'',
-    redirectTo:'home',
+    redirectTo:'customer_guest/home',
     pathMatch:'full'
   },
   {
@@ -37,7 +37,7 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'customer',
+    path: 'customer_guest',
     component: CustomerLayout,
     children: [{
       path: 'home',

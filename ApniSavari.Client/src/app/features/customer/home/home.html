@@ -1,210 +1,524 @@
+<div class="home-page">
 
-<section class="hero">
-  <div class="hero-overlay">
+  <!-- =========================
+       HERO SECTION
+  ========================== -->
+  <section class="hero-section">
+
     <div class="hero-content">
+
       <div class="hero-text">
-        <span class="eyebrow">TRAVEL YOUR WAY</span>
-        <h1>Your journey.<br />Your comfort.<br /><span>Your way.</span></h1>
+        <span class="hero-badge">
+          India's smarter bus booking experience
+        </span>
+
+        <h1>
+          Travel better.<br />
+          <span>Book smarter.</span>
+        </h1>
+
         <p>
-          Discover routes, compare buses, and plan your next journey
-          with a smoother bus booking experience.
+          Discover comfortable buses, choose your preferred seats,
+          and book your journey with ApniSavari.
         </p>
       </div>
 
+
+      <!-- =========================
+           SEARCH CARD
+      ========================== -->
       <div class="search-card">
-        <div class="search-heading">
+
+        <div class="search-card-header">
           <div>
             <h2>Where are you going?</h2>
-            <p>Find your next bus journey</p>
+            <p>Search buses by boarding and destination</p>
           </div>
-          <span class="search-icon">✦</span>
         </div>
+
 
         <div class="search-fields">
-          <div class="field">
+
+          <!-- =========================
+               FROM
+          ========================== -->
+          <div class="field autocomplete-field">
+
             <label>FROM</label>
+
             <div class="input-wrap">
-              <span>⌖</span>
-              <input type="text" placeholder="Leaving from" />
+              <span class="input-icon">⌖</span>
+
+              <input
+                type="text"
+                placeholder="Leaving from"
+                [(ngModel)]="fromQuery"
+                (input)="searchFromStops()"
+                autocomplete="off"
+              />
             </div>
+
+
+            <!-- FROM SUGGESTIONS -->
+            @if (fromStops.length > 0) {
+
+              <div class="suggestions">
+
+                @for (stop of fromStops; track stop.stopId) {
+
+                  <button
+                    type="button"
+                    class="suggestion-item"
+                    (click)="selectFromStop(stop)"
+                  >
+
+                    <strong>
+                      {{ stop.name }}
+                    </strong>
+
+                    <span>
+                      {{ stop.city }} · {{ stop.stateCode }}
+                    </span>
+
+                  </button>
+
+                }
+
+              </div>
+
+            }
+
           </div>
 
-          <div class="swap-wrap">
-            <button type="button" class="swap-button" aria-label="Swap locations">
-              ⇅
-            </button>
-          </div>
 
-          <div class="field">
+          <!-- =========================
+               SWAP BUTTON
+          ========================== -->
+          <button
+            type="button"
+            class="swap-button"
+            aria-label="Swap locations"
+            (click)="swapStops()"
+          >
+            ⇅
+          </button>
+
+
+          <!-- =========================
+               TO
+          ========================== -->
+          <div class="field autocomplete-field">
+
             <label>TO</label>
+
             <div class="input-wrap">
-              <span>⌖</span>
-              <input type="text" placeholder="Going to" />
+              <span class="input-icon">⌖</span>
+
+              <input
+                type="text"
+                placeholder="Going to"
+                [(ngModel)]="toQuery"
+                (input)="searchToStops()"
+                autocomplete="off"
+              />
             </div>
+
+
+            <!-- TO SUGGESTIONS -->
+            @if (toStops.length > 0) {
+
+              <div class="suggestions">
+
+                @for (stop of toStops; track stop.stopId) {
+
+                  <button
+                    type="button"
+                    class="suggestion-item"
+                    (click)="selectToStop(stop)"
+                  >
+
+                    <strong>
+                      {{ stop.name }}
+                    </strong>
+
+                    <span>
+                      {{ stop.city }} · {{ stop.stateCode }}
+                    </span>
+
+                  </button>
+
+                }
+
+              </div>
+
+            }
+
           </div>
 
+
+          <!-- =========================
+               JOURNEY DATE
+          ========================== -->
           <div class="field date-field">
+
             <label>JOURNEY DATE</label>
+
             <div class="input-wrap">
-              <span>▦</span>
-              <input type="date" />
+              <span class="input-icon">▣</span>
+
+              <input
+                type="date"
+                [(ngModel)]="journeyDate"
+              />
             </div>
+
           </div>
+
+
+          <!-- =========================
+               SEARCH BUTTON
+          ========================== -->
+          <button
+            type="button"
+            class="search-button"
+            (click)="searchBuses()"
+          >
+            Search buses
+            <span>→</span>
+          </button>
+
         </div>
 
-        <button type="button" class="search-button">
-          Search buses <span>→</span>
-        </button>
-
-        <div class="search-note">
-          <span>✓</span> Easy booking · Comfortable journeys
-        </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<section class="trust-strip">
-  <div class="trust-item">
-    <span class="trust-icon">✦</span>
-    <div>
-      <strong>Simple bus search</strong>
-      <p>Find routes with ease</p>
     </div>
-  </div>
-  <div class="trust-item">
-    <span class="trust-icon">▦</span>
-    <div>
+
+  </section>
+
+
+  <!-- =========================
+       TRUST STRIP
+  ========================== -->
+  <section class="trust-strip">
+
+    <div class="trust-item">
+      <strong>Easy booking</strong>
+      <span>Simple & fast process</span>
+    </div>
+
+    <div class="trust-item">
       <strong>Choose your seat</strong>
-      <p>View available seating</p>
+      <span>Pick the seat you prefer</span>
     </div>
-  </div>
-  <div class="trust-item">
-    <span class="trust-icon">♡</span>
-    <div>
-      <strong>Travel with comfort</strong>
-      <p>Plan trips your way</p>
+
+    <div class="trust-item">
+      <strong>Verified operators</strong>
+      <span>Travel with confidence</span>
     </div>
-  </div>
-</section>
 
-<section class="popular-section">
-  <div class="section-heading">
-    <div>
-      <span class="eyebrow">EXPLORE DESTINATIONS</span>
-      <h2>Popular routes</h2>
-      <p>Explore some of the routes travelers love.</p>
+    <div class="trust-item">
+      <strong>Secure payments</strong>
+      <span>Safe & reliable checkout</span>
     </div>
-    <a class="text-link">Explore routes <span>→</span></a>
-  </div>
 
-  <div class="route-grid">
-    <article class="route-card">
-      <div class="route-image route-ahmedabad">
-        <span class="route-tag">Popular</span>
-      </div>
-      <div class="route-info">
-        <div class="route-cities">
-          <strong>Ahmedabad</strong>
-          <span>→</span>
-          <strong>Surat</strong>
-        </div>
-        <p>Gujarat · City to city</p>
-        <div class="route-bottom">
-          <span>Explore this route</span>
-          <span class="arrow-circle">↗</span>
-        </div>
-      </div>
-    </article>
+  </section>
 
-    <article class="route-card">
-      <div class="route-image route-mumbai">
-        <span class="route-tag">Popular</span>
-      </div>
-      <div class="route-info">
-        <div class="route-cities">
-          <strong>Ahmedabad</strong>
-          <span>→</span>
-          <strong>Mumbai</strong>
-        </div>
-        <p>Interstate · Long distance</p>
-        <div class="route-bottom">
-          <span>Explore this route</span>
-          <span class="arrow-circle">↗</span>
-        </div>
-      </div>
-    </article>
 
-    <article class="route-card">
-      <div class="route-image route-vadodara">
-        <span class="route-tag">Popular</span>
+  <!-- =========================
+       POPULAR ROUTES
+  ========================== -->
+  <section class="section popular-routes">
+
+    <div class="section-heading">
+
+      <div>
+        <span class="section-label">
+          POPULAR JOURNEYS
+        </span>
+
+        <h2>
+          Explore popular bus routes
+        </h2>
       </div>
-      <div class="route-info">
+
+      <p>
+        Find buses connecting some of the most travelled cities.
+      </p>
+
+    </div>
+
+
+    <div class="route-grid">
+
+      <div class="route-card">
+
         <div class="route-cities">
           <strong>Rajkot</strong>
           <span>→</span>
+          <strong>Ahmedabad</strong>
+        </div>
+
+        <p>
+          Comfortable buses for your daily journey.
+        </p>
+
+        <button type="button">
+          Explore route →
+        </button>
+
+      </div>
+
+
+      <div class="route-card">
+
+        <div class="route-cities">
+          <strong>Somnath</strong>
+          <span>→</span>
+          <strong>Surat</strong>
+        </div>
+
+        <p>
+          Travel across Gujarat with ease.
+        </p>
+
+        <button type="button">
+          Explore route →
+        </button>
+
+      </div>
+
+
+      <div class="route-card">
+
+        <div class="route-cities">
+          <strong>Ahmedabad</strong>
+          <span>→</span>
           <strong>Vadodara</strong>
         </div>
-        <p>Gujarat · Regional route</p>
-        <div class="route-bottom">
-          <span>Explore this route</span>
-          <span class="arrow-circle">↗</span>
+
+        <p>
+          Convenient connections throughout the day.
+        </p>
+
+        <button type="button">
+          Explore route →
+        </button>
+
+      </div>
+
+
+      <div class="route-card">
+
+        <div class="route-cities">
+          <strong>Surat</strong>
+          <span>→</span>
+          <strong>Rajkot</strong>
         </div>
+
+        <p>
+          Discover buses for your next journey.
+        </p>
+
+        <button type="button">
+          Explore route →
+        </button>
+
       </div>
-    </article>
-  </div>
-</section>
 
-<section class="benefits-section">
-  <div class="benefits-intro">
-    <span class="eyebrow">THE APNISAVARI EXPERIENCE</span>
-    <h2>Every journey<br />starts with ease.</h2>
-    <p>
-      From finding your bus to choosing your seat,
-      enjoy a more organized way to plan your travels.
-    </p>
-  </div>
+    </div>
 
-  <div class="benefit-list">
-    <article class="benefit">
-      <div class="benefit-icon">⌕</div>
+  </section>
+
+
+  <!-- =========================
+       WHY APNI SAVARI
+  ========================== -->
+  <section class="section benefits-section">
+
+    <div class="section-heading">
+
       <div>
-        <h3>Find buses with ease</h3>
-        <p>Explore routes and travel options in one place.</p>
-      </div>
-    </article>
+        <span class="section-label">
+          WHY APNI SAVARI
+        </span>
 
-    <article class="benefit">
-      <div class="benefit-icon">▦</div>
-      <div>
-        <h3>Choose your preferred seat</h3>
-        <p>View seat layouts and select from available seats.</p>
+        <h2>
+          Everything you need for a better journey
+        </h2>
       </div>
-    </article>
 
-    <article class="benefit">
-      <div class="benefit-icon">♧</div>
-      <div>
-        <h3>Keep trips organized</h3>
-        <p>Access your bookings and journey details in one place.</p>
+      <p>
+        From finding the right bus to choosing your seat,
+        we keep the booking experience simple.
+      </p>
+
+    </div>
+
+
+    <div class="benefits-grid">
+
+      <div class="benefit-card">
+
+        <div class="benefit-icon">
+          01
+        </div>
+
+        <h3>
+          Search your way
+        </h3>
+
+        <p>
+          Search buses using your preferred boarding point
+          and destination.
+        </p>
+
       </div>
-    </article>
-  </div>
-</section>
 
-<section class="promo-section">
-  <div class="promo-content">
-    <span class="eyebrow">READY FOR YOUR NEXT TRIP?</span>
-    <h2>Good journeys<br />begin here.</h2>
-    <p>Explore your travel options and plan your next journey with ApniSavari.</p>
-    <button type="button" class="promo-button">
-      Start exploring <span>→</span>
-    </button>
-  </div>
-  <div class="promo-decoration">
-    <div class="promo-circle circle-one"></div>
-    <div class="promo-circle circle-two"></div>
-    <div class="promo-route-line"></div>
-    <div class="promo-bus">BUS</div>
-  </div>
-</section>
+
+      <div class="benefit-card">
+
+        <div class="benefit-icon">
+          02
+        </div>
+
+        <h3>
+          Pick your seat
+        </h3>
+
+        <p>
+          View the bus seat layout and select the seat
+          that works best for you.
+        </p>
+
+      </div>
+
+
+      <div class="benefit-card">
+
+        <div class="benefit-icon">
+          03
+        </div>
+
+        <h3>
+          Compare journeys
+        </h3>
+
+        <p>
+          Compare timings, bus types, fares and
+          available seats before booking.
+        </p>
+
+      </div>
+
+
+      <div class="benefit-card">
+
+        <div class="benefit-icon">
+          04
+        </div>
+
+        <h3>
+          Travel confidently
+        </h3>
+
+        <p>
+          Keep your bookings and journey information
+          organized in one place.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       PROMO / CTA SECTION
+  ========================== -->
+  <section class="promo-section">
+
+    <div class="promo-content">
+
+      <span class="section-label">
+        YOUR JOURNEY STARTS HERE
+      </span>
+
+      <h2>
+        Ready to find your next bus?
+      </h2>
+
+      <p>
+        Search your route, choose your seat,
+        and get ready to travel.
+      </p>
+
+      <button
+        type="button"
+        class="promo-button"
+        (click)="searchBuses()"
+      >
+        Search buses
+        <span>→</span>
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+  <footer class="home-footer">
+
+    <div class="footer-content">
+
+      <div class="footer-brand">
+
+        <img
+          src="ApniSavari.png"
+          alt="ApniSavari"
+        />
+
+        <p>
+          Smarter bus travel for everyone.
+        </p>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <a href="#">
+          About
+        </a>
+
+        <a href="#">
+          Contact
+        </a>
+
+        <a href="#">
+          Terms
+        </a>
+
+        <a href="#">
+          Privacy
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <span>
+        © 2026 ApniSavari. All rights reserved.
+      </span>
+
+    </div>
+
+  </footer>
+
+</div>
