@@ -5,6 +5,7 @@ import { CustomerLayout } from './features/customer/customer-layout/customer-lay
 import { CustomerDashboard } from './features/customer/customer-dashboard/customer-dashboard';
 import { authGuard } from './core/guards/auth-guard';
 import { Home } from './features/customer/home/home';
+import { SearchResults } from './features/search-results/search-results';
 
 export const routes: Routes = [
   {
@@ -33,7 +34,11 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         component: CustomerDashboard
-      }
+      },
+      {
+    path: 'search-results',
+    component: SearchResults
+  }
     ]
   },
   {
@@ -42,6 +47,10 @@ export const routes: Routes = [
     children: [{
       path: 'home',
       component: Home
-    }]  
+    },
+  {
+    path: 'search-results',
+    component: SearchResults
+  }]  
   }
 ];

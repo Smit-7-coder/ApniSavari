@@ -24,6 +24,7 @@ namespace ApniSavari.Application.DTOs
     {
         public string BusType { get; set; } = string.Empty;
         public string RegistrationNumber { get; set; } = string.Empty;
+        public string OperatorDisplayName { get; set; } = string.Empty;
     }
 
     public class TripStopInfoDto

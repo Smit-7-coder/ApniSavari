@@ -43,6 +43,19 @@ namespace ApniSavari.Infrastructure.Services
                 .Include(t => t.TripSeatInventories)
                 .ToListAsync();
 
+                var operatorIds = trips
+                    .Select(t => t.OperatorId)
+                    .Distinct()
+                    .ToList();
+
+                var operatorNames = await _context.Operators
+                    .AsNoTracking()
+                    .Where(o => operatorIds.Contains(o.OperatorId))
+                    .ToDictionaryAsync(
+                        o => o.OperatorId,
+                        o => o.DisplayName
+                    );
+
             var results = new List<TripSearchResponseDto>();
             foreach (var trip in trips)
             {
@@ -101,9 +114,15 @@ namespace ApniSavari.Infrastructure.Services
                     Bus = new BusSearchInfoDto
                     {
                         BusType = tripBus.Bus.BusType.Name,
+
                         RegistrationNumber =
                             tripBus.RegistrationNumberSnapshot
-                            ?? tripBus.Bus.RegistrationNumber
+                            ?? tripBus.Bus.RegistrationNumber,
+
+                        OperatorDisplayName =
+                        operatorNames.TryGetValue(trip.OperatorId, out var displayName)
+                        ? displayName
+                        : "Bus operator"
                     },
 
                     Boarding = new TripStopInfoDto

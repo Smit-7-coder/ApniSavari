@@ -3,6 +3,11 @@ import { FormsModule } from '@angular/forms';
 
 import { StopService } from '../../../core/services/stop.service';
 import { Stop } from '../../../core/models/stop.mode';
+
+import{ TripService } from '../../../core/services/trip.service';
+import { TripSearchResult } from '../../../core/models/trip-search';
+
+import { Router } from '@angular/router';
 @Component({
   imports: [FormsModule],
   selector: 'app-home',
@@ -11,7 +16,11 @@ import { Stop } from '../../../core/models/stop.mode';
 })
 export class Home {
     private readonly stopService = inject(StopService);
-   
+   private readonly tripService = inject(TripService);
+   private readonly router = inject(Router);
+   trips: TripSearchResult[] = [];
+isLoading = false;
+searchError = '';
     fromQuery = '';
     toQuery = '';
 
@@ -88,22 +97,31 @@ export class Home {
     this.selectedToStop = oldFromStop;
   }
 
-  searchBuses(): void {
+  
+searchBuses(): void {
+  if (!this.selectedFromStop || !this.selectedToStop) {
+    alert('Please select both FROM and TO locations.');
+    return;
+  }
 
-    if (!this.selectedFromStop || !this.selectedToStop) {
-      alert('Please select both FROM and TO locations.');
-      return;
-    }
+  if (this.selectedFromStop.stopId === this.selectedToStop.stopId) {
+    alert('FROM and TO locations must be different.');
+    return;
+  }
 
-    if (!this.journeyDate) {
-      alert('Please select a journey date.');
-      return;
-    }
+  if (!this.journeyDate) {
+    alert('Please select a journey date.');
+    return;
+  }
 
-    console.log('Search request:', {
+  this.router.navigate(['/customer_guest/search-results'], {
+    queryParams: {
       fromStopId: this.selectedFromStop.stopId,
       toStopId: this.selectedToStop.stopId,
+      fromName: this.selectedFromStop.name,
+      toName: this.selectedToStop.name,
       date: this.journeyDate
-    });
-  }
+    }
+  });
+}
 }

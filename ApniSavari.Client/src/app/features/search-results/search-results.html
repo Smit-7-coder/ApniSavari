@@ -1,0 +1,183 @@
+
+<div class="results-page">
+
+  <header class="page-heading">
+    <div>
+      <span class="eyebrow">APNISAVARI · YOUR JOURNEY</span>
+      <h1>Find your <span>perfect ride.</span></h1>
+      <p>Compare bus timings, fares and available seats.</p>
+    </div>
+
+    <button class="outline-button" type="button" (click)="searchAgain()">
+      ← Modify search
+    </button>
+  </header>
+
+  <section class="journey-summary">
+    <div class="location">
+      <span class="field-label">BOARDING POINT</span>
+      <strong>{{ boardingPointName || 'Selected stop' }}</strong>
+    </div>
+
+    <div class="route-arrow" aria-hidden="true">→</div>
+
+    <div class="location">
+      <span class="field-label">DROPPING POINT</span>
+      <strong>{{ droppingPointName || 'Selected stop' }}</strong>
+    </div>
+
+    <div class="date-summary">
+      <span class="calendar-icon" aria-hidden="true">▣</span>
+      <div>
+        <span class="field-label">JOURNEY DATE</span>
+        <strong>{{ journeyDate | date:'EEE, d MMM yyyy' }}</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="results-heading">
+    <div>
+      <h2>Available buses</h2>
+      <p>
+        @if (isLoading) {
+          Finding journeys for you...
+        } @else if (hasSearched && !searchError) {
+          {{ trips.length }} {{ trips.length === 1 ? 'bus' : 'buses' }} found
+        } @else {
+          Choose the journey that suits you
+        }
+      </p>
+    </div>
+
+    @if (!isLoading && !searchError && trips.length > 0) {
+      <span class="count-badge">{{ trips.length }} RESULTS</span>
+    }
+  </section>
+
+  @if (isLoading) {
+    <div class="state-card" aria-live="polite">
+      <div class="spinner"></div>
+      <h3>Finding available buses</h3>
+      <p>Please wait while we load your journeys.</p>
+    </div>
+  }
+
+  @if (!isLoading && searchError) {
+    <div class="state-card" role="alert">
+      <h3>We couldn't load your buses</h3>
+      <p>{{ searchError }}</p>
+      <button class="primary-button" type="button" (click)="loadTrips()">
+        Try again
+      </button>
+    </div>
+  }
+
+  @if (!isLoading && hasSearched && !searchError && trips.length === 0) {
+    <div class="state-card">
+      <h3>No buses found</h3>
+      <p>Try another date or search for a different route.</p>
+      <button class="primary-button" type="button" (click)="searchAgain()">
+        Modify search
+      </button>
+    </div>
+  }
+
+  @if (!isLoading && !searchError && trips.length > 0) {
+    <section class="bus-list" aria-label="Available bus journeys">
+
+      @for (trip of trips; track trip.tripId) {
+        <article class="bus-card">
+
+          <div class="card-top">
+            <div class="bus-brand-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none">
+                <rect x="8" y="5" width="32" height="35" rx="7"
+                      stroke="currentColor" stroke-width="2.5"/>
+                <path d="M12 13h24v13H12z"
+                      stroke="currentColor" stroke-width="2.5"/>
+                <path d="M12 31h24M16 35h4m8 0h4"
+                      stroke="currentColor" stroke-width="2.5"
+                      stroke-linecap="round"/>
+                <circle cx="15" cy="41" r="3" fill="currentColor"/>
+                <circle cx="33" cy="41" r="3" fill="currentColor"/>
+              </svg>
+            </div>
+
+            <div class="operator-info">
+              <h3>{{ trip.bus.operatorDisplayName || 'Bus operator' }}</h3>
+              <p>{{ trip.bus.busType }} <span>·</span> {{ trip.fare.seatType }}</p>
+              <span class="trip-code">{{ trip.tripCode }}</span>
+            </div>
+
+            <span class="seat-badge">
+              {{ trip.availableSeats }} seats left
+            </span>
+          </div>
+
+          <div class="journey-row">
+            <div class="time-point">
+              <strong>
+                @if (trip.boarding.time) {
+                  {{ trip.boarding.time | date:'h:mm a' }}
+                } @else {
+                  --:--
+                }
+              </strong>
+              <span class="point-name">{{ trip.boarding.stopName }}</span>
+              <small>
+                {{ trip.boarding.time ? (trip.boarding.time | date:'EEE, d MMM') : 'Departure time unavailable' }}
+              </small>
+            </div>
+
+            <div class="journey-line" aria-hidden="true">
+              <span class="line-dot"></span>
+              <span class="line-track"></span>
+              <span class="line-arrow">›</span>
+            </div>
+
+            <div class="time-point arrival">
+              <strong>
+                @if (trip.dropping.time) {
+                  {{ trip.dropping.time | date:'h:mm a' }}
+                } @else {
+                  --:--
+                }
+              </strong>
+              <span class="point-name">{{ trip.dropping.stopName }}</span>
+              <small>
+                {{ trip.dropping.time ? (trip.dropping.time | date:'EEE, d MMM') : 'Arrival time unavailable' }}
+              </small>
+            </div>
+          </div>
+
+          <div class="card-bottom">
+            <div class="fare-info">
+              <span class="field-label">FARE PER SEAT</span>
+              <strong>
+                {{ trip.fare.currency === 'INR' ? '₹' : trip.fare.currency }}
+                {{ trip.fare.totalFare | number:'1.0-2' }}
+              </strong>
+              <small>Including tax</small>
+            </div>
+
+            <div class="availability-info">
+              <span class="availability-dot"></span>
+              <span>
+                {{ trip.availableSeats > 0 ? 'Seats currently available' : 'Currently sold out' }}
+              </span>
+            </div>
+          </div>
+
+        </article>
+      }
+
+    </section>
+  }
+
+  @if (!isLoading && !searchError && trips.length > 0) {
+    <p class="results-footnote">
+      Fares and seat availability are subject to revalidation before booking.
+    </p>
+  }
+
+</div>
