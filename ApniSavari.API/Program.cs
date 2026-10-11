@@ -26,6 +26,8 @@ public class Program
 
         builder.Services.AddScoped<IStopService, StopService>();
 
+        builder.Services.AddScoped<ISeatLayoutService, SeatLayoutService>();
+
         builder.Services.AddScoped<ITripSearchService, TripSearchService>();
 
         builder.Services.AddCors(options =>
