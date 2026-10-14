@@ -29,8 +29,10 @@ namespace ApniSavari.Infrastructure.Services
                 return null;
             }
 
+
             var trip = await _context.Trips
                 .AsNoTracking()
+                .AsSplitQuery()
                 .Include(t => t.Operator)
                 .Include(t => t.TripStops)
                     .ThenInclude(ts => ts.RouteStop)
@@ -45,6 +47,7 @@ namespace ApniSavari.Infrastructure.Services
                 .FirstOrDefaultAsync(
                     t => t.TripId == tripId && t.Status == "Active",
                     cancellationToken);
+
 
             if (trip == null)
             {

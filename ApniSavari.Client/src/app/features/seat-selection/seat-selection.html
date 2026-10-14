@@ -1,0 +1,161 @@
+
+<div class="seat-page">
+  <header class="page-header">
+    <button type="button" class="back-button" (click)="goBack()">
+      ← Back to buses
+    </button>
+    <span class="eyebrow">APNISAVARI · SELECT YOUR SEAT</span>
+    <h1>Choose your <span>comfort.</span></h1>
+    <p>Select your preferred sleeper seat for this journey.</p>
+  </header>
+
+  <!-- @if (loading) {
+    <section class="message-card">
+      <div class="spinner"></div>
+      <h2>Loading seats</h2>
+      <p>Please wait while we load the bus layout.</p>
+    </section>
+  } -->
+
+  @if (!loading && error) {
+    <section class="message-card" role="alert">
+      <h2>Unable to load seats</h2>
+      <p>{{ error }}</p>
+      <button class="primary-button" type="button" (click)="goBack()">
+        Back to search
+      </button>
+    </section>
+  }
+
+  @if (!loading && !error && layout) {
+    <section class="journey-card">
+      <div>
+        <span class="label">OPERATOR</span>
+        <h2>{{ layout.operatorDisplayName }}</h2>
+        <p>{{ layout.busType }} · {{ layout.tripCode }}</p>
+      </div>
+
+      <div class="journey-stops">
+        <div>
+          <span class="label">BOARDING</span>
+          <strong>{{ layout.boardingPoint.stopName }}</strong>
+          <small>
+            {{ layout.boardingPoint.time
+              ? (layout.boardingPoint.time | date:'h:mm a')
+              : 'Time unavailable' }}
+          </small>
+        </div>
+
+        <span class="route-arrow">→</span>
+
+        <div class="drop-point">
+          <span class="label">DROPPING</span>
+          <strong>{{ layout.droppingPoint.stopName }}</strong>
+          <small>
+            {{ layout.droppingPoint.time
+              ? (layout.droppingPoint.time | date:'h:mm a')
+              : 'Time unavailable' }}
+          </small>
+        </div>
+      </div>
+    </section>
+
+    <section class="seat-layout-card">
+      <div class="layout-heading">
+        <div>
+          <span class="eyebrow">YOUR SEAT MAP</span>
+          <h2>AC Sleeper layout</h2>
+        </div>
+        <span class="seat-count">
+          {{ layout.seats.length }} seats
+        </span>
+      </div>
+
+      <div class="legend">
+        <span><i class="legend-box available"></i> Available</span>
+        <span><i class="legend-box chosen"></i> Selected</span>
+        <span><i class="legend-box unavailable"></i> Unavailable</span>
+      </div>
+
+      <div class="deck-tabs">
+        <button
+          type="button"
+          [class.active]="activeDeck === 'Lower'"
+          (click)="activeDeck = 'Lower'">
+          Lower deck
+        </button>
+        <button
+          type="button"
+          [class.active]="activeDeck === 'Upper'"
+          (click)="activeDeck = 'Upper'">
+          Upper deck
+        </button>
+      </div>
+
+      <div class="bus-outline">
+        <div class="driver-label">FRONT OF BUS</div>
+
+        <div class="seat-grid">
+          @for (seat of visibleSeats; track seat.tripSeatInventoryId) {
+            <button
+              type="button"
+              class="seat"
+              [class.available]="isAvailable(seat)"
+              [class.unavailable]="!isAvailable(seat)"
+              [class.selected]="isSelected(seat)"
+              [disabled]="!isAvailable(seat)"
+              [attr.aria-pressed]="isSelected(seat)"
+              [attr.aria-label]="'Seat ' + seat.seatCode + ', ' + seat.status"
+              (click)="toggleSeat(seat)">
+
+              <span class="seat-code">{{ seat.seatCode }}</span>
+              <span class="seat-price">
+                {{ seat.fare === null
+                  ? '—'
+                  : (seat.fare | number:'1.0-0') }}
+              </span>
+            </button>
+          }
+        </div>
+
+        @if (visibleSeats.length === 0) {
+          <p class="empty-deck">No seats are listed for this deck.</p>
+        }
+      </div>
+    </section>
+
+    <aside class="selection-summary">
+      <div class="summary-details">
+        <span class="label">SELECTED SEATS</span>
+        <strong>
+          @if (selectedSeats.length) {
+            {{ selectedSeats.map(s => s.seatCode).join(', ') }}
+          } @else {
+            No seats selected
+          }
+        </strong>
+        <small>{{ selectedSeats.length }} seat(s)</small>
+      </div>
+
+      <div class="summary-fare">
+        <span class="label">TOTAL FARE</span>
+        <strong>
+          {{ selectedSeats.length ? '₹' : '' }}
+          {{ totalFare | number:'1.0-2' }}
+        </strong>
+      </div>
+
+      <button
+        type="button"
+        class="primary-button"
+        [disabled]="selectedSeats.length === 0"
+        (click)="continueBooking()">
+        Continue
+      </button>
+    </aside>
+
+    <p class="notice">
+      Seat status and fares must be revalidated by the server before booking.
+    </p>
+  }
+</div>

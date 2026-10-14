@@ -89,18 +89,14 @@
         <article class="bus-card">
 
           <div class="card-top">
-            <div class="bus-brand-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none">
-                <rect x="8" y="5" width="32" height="35" rx="7"
-                      stroke="currentColor" stroke-width="2.5"/>
-                <path d="M12 13h24v13H12z"
-                      stroke="currentColor" stroke-width="2.5"/>
-                <path d="M12 31h24M16 35h4m8 0h4"
-                      stroke="currentColor" stroke-width="2.5"
-                      stroke-linecap="round"/>
-                <circle cx="15" cy="41" r="3" fill="currentColor"/>
-                <circle cx="33" cy="41" r="3" fill="currentColor"/>
-              </svg>
+
+            <!-- Compact bus image -->
+            <div class="bus-brand-image">
+              <img
+                src="/images/buses/ac-sleeper-bus.png"
+                alt="AC sleeper bus"
+                loading="lazy"
+              />
             </div>
 
             <div class="operator-info">
@@ -123,7 +119,9 @@
                   --:--
                 }
               </strong>
+
               <span class="point-name">{{ trip.boarding.stopName }}</span>
+
               <small>
                 {{ trip.boarding.time ? (trip.boarding.time | date:'EEE, d MMM') : 'Departure time unavailable' }}
               </small>
@@ -143,7 +141,9 @@
                   --:--
                 }
               </strong>
+
               <span class="point-name">{{ trip.dropping.stopName }}</span>
+
               <small>
                 {{ trip.dropping.time ? (trip.dropping.time | date:'EEE, d MMM') : 'Arrival time unavailable' }}
               </small>
@@ -153,10 +153,12 @@
           <div class="card-bottom">
             <div class="fare-info">
               <span class="field-label">FARE PER SEAT</span>
+
               <strong>
                 {{ trip.fare.currency === 'INR' ? '₹' : trip.fare.currency }}
                 {{ trip.fare.totalFare | number:'1.0-2' }}
               </strong>
+
               <small>Including tax</small>
             </div>
 
@@ -167,6 +169,12 @@
               </span>
             </div>
           </div>
+          <button
+  type="button"
+  class="select-seat-button"
+  (click)="selectSeats(trip)">
+  Select seats
+</button>
 
         </article>
       }

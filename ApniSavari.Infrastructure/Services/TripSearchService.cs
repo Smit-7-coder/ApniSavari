@@ -28,22 +28,25 @@ namespace ApniSavari.Infrastructure.Services
                 return new List<TripSearchResponseDto>();
             }
 
+
             var trips = await _context.Trips
                 .AsNoTracking()
+                .AsSplitQuery()
                 .Where(t =>
-                t.ServiceDate == date &&
-                t.Status == "Active")
+                    t.ServiceDate == date &&
+                    t.Status == "Active")
                 .Include(t => t.TripStops)
                     .ThenInclude(ts => ts.RouteStop)
-                    .ThenInclude(rs => rs.Stop)
+                        .ThenInclude(rs => rs.Stop)
                 .Include(t => t.TripBuses)
                     .ThenInclude(tb => tb.Bus)
-                    .ThenInclude(b => b.BusType)
+                        .ThenInclude(b => b.BusType)
                 .Include(t => t.TripFares)
                 .Include(t => t.TripSeatInventories)
                 .ToListAsync();
 
-                var operatorIds = trips
+
+            var operatorIds = trips
                     .Select(t => t.OperatorId)
                     .Distinct()
                     .ToList();

@@ -101,4 +101,15 @@ export class SearchResults implements OnInit {
   searchAgain(): void {
     this.router.navigate(['/customer_guest/home']);
   }
+
+  selectSeats(trip: TripSearchResult): void {
+    this.router.navigate(['/customer_guest/seat-selection'], {
+      queryParams: {
+        tripId: trip.tripId,
+        fromStopId: this.fromStopId,
+        toStopId: this.toStopId,
+        date: this.journeyDate
+      }
+    });
+  }
 }

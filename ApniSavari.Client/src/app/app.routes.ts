@@ -6,6 +6,7 @@ import { CustomerDashboard } from './features/customer/customer-dashboard/custom
 import { authGuard } from './core/guards/auth-guard';
 import { Home } from './features/customer/home/home';
 import { SearchResults } from './features/search-results/search-results';
+import { SeatSelection } from './features/seat-selection/seat-selection';
 
 export const routes: Routes = [
   {
@@ -51,6 +52,10 @@ export const routes: Routes = [
   {
     path: 'search-results',
     component: SearchResults
-  }]  
+  },
+{
+  path: 'seat-selection',
+  component: SeatSelection
+}]  
   }
 ];
